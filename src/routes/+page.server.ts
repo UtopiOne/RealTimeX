@@ -20,8 +20,10 @@ export const actions = {
 	default: async ({ request }) => {
 		const formData = await request.formData();
 
-		const { data, error } = await supabaseClient
-			.from('messages')
-			.insert([{ contents: formData.get('message'), author: 'Another-User' }]);
+		if (formData.get('message')) {
+			const { data, error } = await supabaseClient
+				.from('messages')
+				.insert([{ contents: formData.get('message'), author: 'Another-User' }]);
+		}
 	}
 } satisfies Actions;
