@@ -12,7 +12,7 @@
 	<svelte:fragment slot="header">
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<strong class="text-xl">RealTimeX</strong>
+				<a class="text-xl" href="/">RealTimeX</a>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch size="sm" />
