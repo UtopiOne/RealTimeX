@@ -24,4 +24,8 @@
 			<p class="card-footer mt-3">by {message.author} at {formatDate(message.time)}</p>
 		</div>
 	{/each}
+	<form class="flex flex-col">
+		<textarea class="textarea resize-none w-96" rows="4" placeholder="Enter your message" />
+		<button class="btn variant-filled-primary mt-5 w-1/3">Submit</button>
+	</form>
 </div>

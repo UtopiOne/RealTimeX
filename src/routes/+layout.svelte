@@ -4,7 +4,7 @@
 	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
 	import '@skeletonlabs/skeleton/styles/all.css';
 	// Most of your app wide CSS should be put in this file
-	import { AppBar, AppShell, LightSwitch } from '@skeletonlabs/skeleton';
+	import { AppBar, AppShell, Avatar, LightSwitch } from '@skeletonlabs/skeleton';
 	import '../app.postcss';
 </script>
 
@@ -16,6 +16,7 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch size="sm" />
+				<Avatar width="w-10" />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
