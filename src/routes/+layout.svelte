@@ -16,7 +16,7 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch size="sm" />
-				<Avatar width="w-10" />
+				<Avatar width="w-10" src="https://i.pravatar.cc/100" />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
