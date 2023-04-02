@@ -33,6 +33,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@supabase/supabase-js": "^2.13.1"
+		"@supabase/supabase-js": "^2.13.1",
+		"moment": "^2.29.4"
 	}
 }
