@@ -22,12 +22,14 @@
 </svelte:head>
 
 <div class="flex flex-col m-5 items-center">
-	{#each [...data.messages].reverse() as msg, i (msg.id)}
-		<div class="card card-hover w-full lg:w-1/3 mb-5">
-			<p class="card-header">{msg.contents}</p>
-			<p class="card-footer mt-3">by {msg.author} {formatDate(msg.time)}</p>
-		</div>
-	{/each}
+	<section class=" w-full lg:w-1/3 space-y-4 mb-5">
+		{#each [...data.messages].reverse() as msg, i (msg.id)}
+			<div class="card card-hover mb-5">
+				<p class="card-header">{msg.contents}</p>
+				<p class="card-footer mt-3">by {msg.author} {formatDate(msg.time)}</p>
+			</div>
+		{/each}
+	</section>
 
 	<form method="POST" class="flex flex-col">
 		<textarea
