@@ -18,10 +18,11 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch size="sm" />
+
 				{#if loggedIn}
 					<Avatar width="w-10" src="https://i.pravatar.cc/100" />
 				{:else}
-					<a href="/login">Log in</a>
+					<a href="/auth/login">Log in</a>
 				{/if}
 			</svelte:fragment>
 		</AppBar>
