@@ -1,4 +1,4 @@
-import supabaseClient from '$lib/db/supabaseClient';
+import { supabase } from '$lib/db/supabaseClient';
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
@@ -11,7 +11,7 @@ const messageSchema = z.object({
 
 export const load = (async (event) => {
 	const form = await superValidate(event, messageSchema);
-	const messages = await supabaseClient
+	const messages = await supabase
 		.from('messages')
 		.select()
 		.order('time', { ascending: false })
@@ -33,7 +33,7 @@ export const actions = {
 			});
 		}
 
-		const { data, error } = await supabaseClient
+		const { data, error } = await supabase
 			.from('messages')
 			.insert([{ contents: form.data.message, author: 'testUser' }]);
 	}

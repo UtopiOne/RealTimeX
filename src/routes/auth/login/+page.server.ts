@@ -1,4 +1,4 @@
-import supabaseClient from '$lib/db/supabaseClient';
+import { supabase } from '$lib/db/supabaseClient';
 import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
@@ -28,7 +28,7 @@ export const actions = {
 			});
 		}
 
-		let { data, error } = await supabaseClient.auth.signInWithPassword({
+		let { data, error } = await supabase.auth.signInWithPassword({
 			email: form.data.mail,
 			password: form.data.password
 		});
