@@ -17,7 +17,7 @@
 	const posts = supabase
 		.channel('custom-all-channel')
 		.on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, (payload) => {
-			if ($messagesStore.length > 5) {
+			if ($messagesStore.length >= 4) {
 				$messagesStore.pop();
 				$messagesStore = $messagesStore;
 			}
