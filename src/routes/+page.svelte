@@ -7,6 +7,8 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
 
+	console.log('Test');
+
 	export let data: PageData;
 
 	messagesStore.set(data.messages);
