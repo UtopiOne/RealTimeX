@@ -1,8 +1,15 @@
 import supabaseClient from '$lib/db/supabaseClient';
+import { superValidate } from 'sveltekit-superforms/server';
+import { z } from 'zod';
 
 import type { Actions, PageServerLoad } from './$types';
 
-export const load = (async ({ params }) => {
+const messageSchema = z.object({
+	message: z.string().min(1)
+});
+
+export const load = (async (event) => {
+	const form = await superValidate(event, messageSchema);
 	const messages = await supabaseClient
 		.from('messages')
 		.select()
@@ -10,6 +17,7 @@ export const load = (async ({ params }) => {
 		.range(0, 4);
 
 	return {
+		form,
 		messages: messages.data
 	};
 }) satisfies PageServerLoad;
