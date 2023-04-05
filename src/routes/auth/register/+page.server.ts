@@ -1,5 +1,5 @@
 import { supabase } from '$lib/db/supabaseClient';
-import { fail } from '@sveltejs/kit';
+import { fail, type RequestEvent } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 import type { Actions } from './$types';
@@ -10,7 +10,15 @@ const registerSchema = z.object({
 	password: z.string().min(6)
 });
 
-export const load = async (event) => {
+export const load = async (
+	event:
+		| RequestEvent<Partial<Record<string, string>>, string | null>
+		| Request
+		| FormData
+		| Partial<{ username: string; mail: string; password: string }>
+		| null
+		| undefined
+) => {
 	const form = await superValidate(event, registerSchema);
 
 	return {

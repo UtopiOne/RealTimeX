@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { supabase } from '$lib/db/supabaseClient';
+	import { messagesStore } from '$lib/stores/messagesStore';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import moment from 'moment';
 	import { fly } from 'svelte/transition';
@@ -7,7 +9,19 @@
 
 	export let data: PageData;
 
+	messagesStore.set(data.messages);
+	$: messages = $messagesStore;
+
 	const { form, errors, enhance, constraints } = superForm(data.form);
+
+	const posts = supabase
+		.channel('custom-all-channel')
+		.on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, (payload) => {
+			$messagesStore.pop();
+			$messagesStore = $messagesStore;
+			$messagesStore = [payload.new, ...$messagesStore];
+		})
+		.subscribe();
 
 	export const formatDate = (dateString: string): string => {
 		const date = moment(dateString, 'YYYYMMDDHHmmss');
@@ -27,7 +41,7 @@
 
 <div class="flex flex-col m-5 items-center overflow-hidden">
 	<section class=" w-full lg:w-1/3 space-y-4 mb-5 overflow-y-auto overflow-x-hidden">
-		{#each [...data.messages].reverse() as msg, i (msg.id)}
+		{#each [...messages].reverse() as msg, i (msg.id)}
 			<div class="card card-hover mb-5" in:fly={{ x: -100, duration: 100 }}>
 				<p class="card-header">{msg.contents}</p>
 				<p class="card-footer mt-3">by {msg.author} {formatDate(msg.time)}</p>

@@ -1,5 +1,5 @@
 import { supabase } from '$lib/db/supabaseClient';
-import { fail } from '@sveltejs/kit';
+import { fail, type RequestEvent } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 import type { Actions } from './$types';
@@ -9,7 +9,15 @@ const loginSchema = z.object({
 	password: z.string().min(6)
 });
 
-export const load = async (event) => {
+export const load = async (
+	event:
+		| RequestEvent<Partial<Record<string, string>>, string | null>
+		| Request
+		| FormData
+		| Partial<{ mail: string; password: string }>
+		| null
+		| undefined
+) => {
 	const form = await superValidate(event, loginSchema);
 
 	return {
@@ -20,7 +28,6 @@ export const load = async (event) => {
 export const actions = {
 	default: async (event) => {
 		const form = await superValidate(event, loginSchema);
-		console.log(form);
 
 		if (!form.valid) {
 			return fail(400, {
