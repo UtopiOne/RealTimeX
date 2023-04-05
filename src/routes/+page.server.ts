@@ -1,4 +1,5 @@
 import supabaseClient from '$lib/db/supabaseClient';
+import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
@@ -23,13 +24,17 @@ export const load = (async (event) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request }) => {
-		const formData = await request.formData();
+	default: async (event) => {
+		const form = await superValidate(event, messageSchema);
 
-		if (formData.get('message')) {
-			const { data, error } = await supabaseClient
-				.from('messages')
-				.insert([{ contents: formData.get('message'), author: 'Another-User' }]);
+		if (!form.valid) {
+			return fail(400, {
+				form
+			});
 		}
+
+		const { data, error } = await supabaseClient
+			.from('messages')
+			.insert([{ contents: form.data.message, author: 'testUser' }]);
 	}
 } satisfies Actions;
