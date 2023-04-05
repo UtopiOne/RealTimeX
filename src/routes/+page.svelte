@@ -41,8 +41,8 @@
 	<meta name="RealTimeX" content="Welcome to RealTimeX" />
 </svelte:head>
 
-<div class="flex flex-col m-5 items-center overflow-hidden">
-	<section class=" w-full lg:w-1/3 space-y-4 mb-5 overflow-y-auto overflow-x-hidden">
+<div class="flex flex-col m-5 items-center">
+	<section class=" w-full lg:w-1/3 space-y-4 mb-5">
 		{#each [...messages].reverse() as msg, i (msg.id)}
 			<div class="card card-hover mb-5" in:fly={{ x: -100, duration: 100 }}>
 				<p class="card-header">{msg.contents}</p>

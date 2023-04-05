@@ -4,10 +4,11 @@
 	// If you have source.organizeImports set to true in VSCode, then it will auto change this ordering
 	import '@skeletonlabs/skeleton/styles/all.css';
 	// Most of your app wide CSS should be put in this file
+	import github from '$lib/assets/github.svg';
 	import { AppBar, AppShell, Avatar, LightSwitch } from '@skeletonlabs/skeleton';
 	import '../app.postcss';
 
-	let loggedIn = false;
+	let loggedIn = true;
 </script>
 
 <AppShell>
@@ -15,10 +16,12 @@
 		<AppBar>
 			<svelte:fragment slot="lead">
 				<a class="text-xl" href="/">RealTimeX</a>
+				<a href="https://github.com/UtopiOne/RealTimeX" class="ml-5"
+					><img src={github} alt="github" /></a
+				>
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch size="sm" />
-
 				{#if loggedIn}
 					<Avatar width="w-10" src="https://i.pravatar.cc/100" />
 				{:else}
