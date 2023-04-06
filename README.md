@@ -1,6 +1,6 @@
 # RealTimeX
 
-Another iteration of Realtime Chat using Skeleton UI.
+Another iteration of Realtime Chat using Skeleton UI and Supabase as a backend.
 
 ## create-svelte
 
