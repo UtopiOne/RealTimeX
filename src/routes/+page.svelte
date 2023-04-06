@@ -51,7 +51,7 @@
 		{/each}
 	</section>
 
-	<form method="POST" class="flex flex-col" use:enhance>
+	<form method="POST" class="flex flex-col mt-5" use:enhance>
 		<input
 			placeholder="Your username"
 			class="input w-96 p-2 mb-2"
