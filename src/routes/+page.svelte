@@ -17,7 +17,7 @@
 	const posts = supabase
 		.channel('custom-all-channel')
 		.on('postgres_changes', { event: '*', schema: 'public', table: 'messages' }, (payload) => {
-			if ($messagesStore.length >= 4) {
+			if ($messagesStore.length > 4) {
 				$messagesStore.pop();
 				$messagesStore = $messagesStore;
 			}
@@ -41,8 +41,8 @@
 	<meta name="RealTimeX" content="Welcome to RealTimeX" />
 </svelte:head>
 
-<div class="flex flex-col m-5 items-center">
-	<section class=" w-full lg:w-1/3 space-y-4 mb-5">
+<div class="flex flex-col my-5 items-center">
+	<section class=" w-full lg:w-1/3 space-y-4">
 		{#each [...messages].reverse() as msg, i (msg.id)}
 			<div class="card card-hover mb-5" in:fly={{ x: -100, duration: 100 }}>
 				<p class="card-header">{msg.contents}</p>
@@ -52,6 +52,13 @@
 	</section>
 
 	<form method="POST" class="flex flex-col" use:enhance>
+		<input
+			placeholder="Your username"
+			class="input w-96 p-2 mb-2"
+			name="username"
+			bind:value={$form.username}
+			{...$constraints.username}
+		/>
 		<textarea
 			class="textarea resize-none w-96"
 			placeholder="Enter your message"

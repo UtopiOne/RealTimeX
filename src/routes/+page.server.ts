@@ -6,6 +6,7 @@ import { z } from 'zod';
 import type { Actions, PageServerLoad } from './$types';
 
 const messageSchema = z.object({
+	username: z.string().min(3),
 	message: z.string().min(1)
 });
 
@@ -35,6 +36,6 @@ export const actions = {
 
 		const { data, error } = await supabase
 			.from('messages')
-			.insert([{ contents: form.data.message, author: 'testUser' }]);
+			.insert([{ contents: form.data.message, author: form.data.username }]);
 	}
 } satisfies Actions;
